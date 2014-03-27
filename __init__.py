@@ -2,13 +2,13 @@ import tornado.web
 import tornado.httpserver
 import tornado. ioloop
 
-from controller import Home, RealSocket
+from controller import HomePage, RealSocket
 
 
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r'/', Home),
+            (r'/', HomePage),
             (r'/socket', RealSocket)
         ]
 
