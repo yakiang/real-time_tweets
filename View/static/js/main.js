@@ -3,9 +3,15 @@ function open_socket() {
   var websocket = new WebSocket(host);
 
   websocket.onopen = function() {
-    console.log('===');
   }
 
   WebSocket.onmessage = function(evt) {
   }
+}
+
+function add() {
+  var topTweet = $('.tweet').eq(0);
+  var newTweet = topTweet.clone();
+  newTweet.children('p').text('this is a new one');
+  newTweet.insertBefore(topTweet);
 }
