@@ -3,9 +3,11 @@ from uuid import uuid1
 
 import tornado.web
 import tornado.websocket
-import redis
 
 from model import GetTweets
+
+
+sessions = {}
 
 
 class HomePage(tornado.web.RequestHandler):
@@ -14,9 +16,6 @@ class HomePage(tornado.web.RequestHandler):
 
 
 class RealSocket(tornado.websocket.WebSocketHandler):
-    def initialize(self):
-        self.db = redis.StrictRedis(host='localhost', port=6379, db=0)
-
     def open(self):
         print 'socket opened'
 
@@ -27,15 +26,11 @@ class RealSocket(tornado.websocket.WebSocketHandler):
         message = json.loads(data)
         hashtag, session = message.get('hashtag'), message.get('session')
         if hashtag:
-            if self.db.hget(session, 'socket'):
-                prevStream = self.db.hget(session, 'stream')
+            if session in sessions:
+                prevStream = sessions[session]
                 prevStream.stream.disconnect()
                 del prevStream
 
-            self.db.hset(session, 'socket', self)
-            newStream = GetTweets(hashtag, session)
+            newStream = GetTweets(hashtag, self)
             newStream.daemon = True
-            self.db.hset(session, 'stream', newStream)
-
-            print self.db.hget(session, 'socket')
             newStream.start()

@@ -9,9 +9,9 @@ jQuery(document).ready(function() {
     console.log('opened');
   }
 
-  WebSocket.onmessage = function(evt) {
-    var tweet = $.parseJSON(evt.data['tweet']);
-    add_tweet(tweet);
+  websocket.onmessage = function(evt) {
+    var tweet = JSON.parse(evt.data);
+    add_tweet(tweet['tweet']);
   }
 
 });
@@ -21,7 +21,7 @@ function add_tweet(tweet) {
   var topTweet = $('.tweet').eq(0);
   var newTweet = topTweet.clone();
 
-  newTweet.children('p').text(tweet['text']);
+  newTweet.children('p').text(tweet);
   newTweet.insertBefore(topTweet);
 }
 

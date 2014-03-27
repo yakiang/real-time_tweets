@@ -1,14 +1,13 @@
 from threading import Thread
 
 from twython import TwythonStreamer
-import redis
 
 
 class StreamTweets(TwythonStreamer):
     def on_success(self, data):
         if 'text' in data:
-            self.socket.write_message(data['text'].encode('utf-8'))
-            # print data['text'].encode('utf-8')
+            print data['text'].encode('utf-8')
+            self.socket.write_message('{"tweet": "%s"}' % data['text'].encode('utf-8'))
 
     def on_error(self, status_code, data):
         print status_code
@@ -16,16 +15,8 @@ class StreamTweets(TwythonStreamer):
     def on_timeout(self):
         pass
 
-    def set_session(self, session):
-        self.session = session
-        self.get_socket()
-
-    def get_socket(self):
-        self.db = redis.StrictRedis(host='localhost', port=6379, db=0)
-        self.socket = self.db.hget(self.session, 'socket')
-        print self.session
-        print self.socket
-
+    def set_socket(self, socket):
+        self.socket = socket
 
 
 class GetTweets(Thread):
@@ -37,9 +28,9 @@ class GetTweets(Thread):
     stream = StreamTweets(APP_KEY, APP_SECRET,
                           OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
-    def __init__(self, hashtag, session):
+    def __init__(self, hashtag, socket):
         self.track = hashtag
-        self.stream.set_session(session)
+        self.stream.set_socket(socket)
         Thread.__init__(self)
 
     def run(self):
