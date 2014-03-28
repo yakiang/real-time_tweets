@@ -1,5 +1,8 @@
 *.py[cod]
+
 tip.txt
+logs/*
+tornado/nohup.out
 
 # C extensions
 *.so
