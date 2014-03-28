@@ -8,10 +8,13 @@ class StreamTweets(TwythonStreamer):
             self.socket.write_message(message)
 
     def on_error(self, status_code, data):
-        print data.__str__()
+        print data
+        message = '{"error": "%s"}' % status_code.__str__()
+        self.socket.write_message(message)
 
     def on_timeout(self):
-        print 'time out'
+        message = '{"error": "timeout"}'
+        self.socket.write_message(message)
 
     def set_socket(self, socket):
         self.socket = socket

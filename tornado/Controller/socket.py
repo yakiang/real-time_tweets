@@ -26,4 +26,5 @@ class RealSocket(tornado.websocket.WebSocketHandler):
 
             newStream = GetTweets(hashtag, self)
             newStream.daemon = True
+            sessions[session] = newStream
             newStream.start()
