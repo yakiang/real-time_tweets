@@ -14,10 +14,20 @@ body {
 .tweet {
   float: left;
   width: 28%;
-  height: 250px;
-  margin: 60px 17px 20px 30px;
-  word-break: break-all;
-  font-size: 25px;
-  padding: 6px;
+  height: 280px;
+  margin: 60px 15px 20px 30px;
+  word-wrap: break-word;
   border: 3px groove #98BF21;
+}
+
+.user {
+  font-size: 27px;
+  color: #1E90FF;
+  padding-top: -18px;
+  padding-left: 10px;
+}
+
+.text {
+  font-size: 20px;
+  padding: 0 20px 0 20px;
 }

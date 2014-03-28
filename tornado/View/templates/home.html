@@ -11,11 +11,15 @@
   <body>
     <div id='hashdiv'>
       <input id='hashtag' class='topcoat-search-input'>
-      <input type='submit' value='Update!' class='topcoat-button--cta' onclick='new_socket()'>
+      <input type='submit' value='Update' class='topcoat-button--cta' onclick='new_socket()'>
     </div>
     <div class='tweet shake'>
-      <h4></h4>
-      <p></p>
+      <h4 class='user'></h4>
+      <p class='text'>
+        Please input the keyword you want to monitor and click `Update` above and wait seconds.<br>
+        When anyone tweets anything containing your keyword, it'll be displayed here.<br>
+        Chinese words are supported.
+      </p>
     </div>
   </body>
 </html>

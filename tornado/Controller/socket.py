@@ -5,7 +5,7 @@ import tornado.websocket
 from Model.thread import GetTweets
 
 
-SOCKET_STREAM_DICT = {}
+sockets = {}
     
 
 class RealSocket(tornado.websocket.WebSocketHandler):
@@ -18,17 +18,17 @@ class RealSocket(tornado.websocket.WebSocketHandler):
 
     def on_message(self, data):
         message = json.loads(data)
-        hashtag= message.get('hashtag')
+        hashtag= message.get('hashtag').encode('utf-8')
 
         if hashtag:
-            if self in SOCKET_STREAM_DICT:
+            if self in sockets:
                 self.disconnect_stream();
 
             newStream = GetTweets(hashtag, self)
             newStream.daemon = True
-            SOCKET_STREAM_DICT[self] = newStream
+            sockets[self] = newStream
             newStream.start()
 
     def disconnect_stream(self):
-        SOCKET_STREAM_DICT[self].stream.disconnect()
-        del SOCKET_STREAM_DICT[self]
+        sockets[self].stream.disconnect()
+        del sockets[self]
