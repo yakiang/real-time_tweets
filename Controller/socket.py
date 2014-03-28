@@ -1,19 +1,12 @@
 import json
-from uuid import uuid1
 
-import tornado.web
 import tornado.websocket
 
-from model import GetTweets
+from Model.thread import GetTweets
 
 
 sessions = {}
-
-
-class HomePage(tornado.web.RequestHandler):
-    def get(self):
-        self.render('home.html', session=uuid1())
-
+    
 
 class RealSocket(tornado.websocket.WebSocketHandler):
     def open(self):

@@ -1,5 +1,6 @@
 var websocket;
 
+
 jQuery(document).ready(function() {
 
   var host = 'ws://23.244.200.215:8000/socket';
@@ -25,9 +26,11 @@ function add_tweet(tweet) {
   newTweet.insertBefore(topTweet);
 }
 
+
 function new_socket() {
   var hashtag = $('#hashtag').val();
   var session = $('#session').text();
+
   websocket.send(JSON.stringify({
     'hashtag': hashtag,
     'session': session

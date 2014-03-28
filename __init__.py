@@ -1,8 +1,9 @@
 import tornado.web
 import tornado.httpserver
-import tornado. ioloop
+import tornado.ioloop
 
-from controller import HomePage, RealSocket
+from Controller.home import HomePage
+from Controller.socket import RealSocket
 
 
 class Application(tornado.web.Application):
