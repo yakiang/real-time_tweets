@@ -3,7 +3,7 @@ var websocket;
 
 jQuery(document).ready(function() {
 
-  var host = 'ws://localhost:8000/socket';
+  var host = 'ws://23.244.200.215:8000/socket';
   websocket = new WebSocket(host);
 
   websocket.onopen = function() {
@@ -12,7 +12,7 @@ jQuery(document).ready(function() {
 
   websocket.onmessage = function(evt) {
     var tweet = JSON.parse(evt.data);
-    add_tweet(tweet['tweet']);
+    add_tweet(tweet);
   }
 
 });
@@ -22,7 +22,13 @@ function add_tweet(tweet) {
   var topTweet = $('.tweet').eq(0);
   var newTweet = topTweet.clone();
 
-  newTweet.children('p').text(tweet);
+  var user = tweet['user'] || 'Ooops';
+  var text = tweet['text'] || tweet['error'];
+  console.log(user);
+  console.log(text);
+
+  newTweet.children('h4').text(user)
+  newTweet.children('p').text(text);
   newTweet.insertBefore(topTweet);
 }
 

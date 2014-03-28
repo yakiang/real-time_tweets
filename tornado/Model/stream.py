@@ -4,7 +4,14 @@ from twython import TwythonStreamer
 class StreamTweets(TwythonStreamer):
     def on_success(self, data):
         if 'text' in data:
-            message = '{"tweet": "%s"}' % data['text'].encode('utf-8')
+            # with open('tweets.txt', 'a') as f:
+                # f.write('\n\n' + data.__str__().encode('utf-8'))
+            message = '''{
+                "text": "%s",
+                "user": "%s"
+                }
+                ''' % (data['text'].encode('utf-8'), 
+                       data['user']['screen_name'].encode('utf-8'))
             self.socket.write_message(message)
 
     def on_error(self, status_code, data):
