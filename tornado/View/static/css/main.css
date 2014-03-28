@@ -4,7 +4,7 @@ body {
 
 #hashdiv {
   position: absolute;
-  margin: 10px;
+  margin: 15px;
 }
 
 #hashtag {
@@ -14,10 +14,10 @@ body {
 .tweet {
   float: left;
   width: 28%;
-  height: 20%;
-  margin: 60px 20px 20px 50px;
+  height: 250px;
+  margin: 60px 17px 20px 30px;
   word-break: break-all;
-  font-size: 30px;
+  font-size: 25px;
+  padding: 6px;
+  border: 3px groove #98BF21;
 }
-
-

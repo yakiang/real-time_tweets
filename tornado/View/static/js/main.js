@@ -22,7 +22,7 @@ function add_tweet(tweet) {
   var topTweet = $('.tweet').eq(0);
   var newTweet = topTweet.clone();
 
-  var user = tweet['user'] || 'Ooops';
+  var user = ('@' + tweet['user']) || 'Ooops';
   var text = tweet['text'] || tweet['error'];
   console.log(user);
   console.log(text);
