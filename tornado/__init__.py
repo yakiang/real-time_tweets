@@ -21,8 +21,6 @@ class Application(tornado.web.Application):
             'static_path': 'View/static'
         }
 
-        self.sessions = []
-
         tornado.web.Application.__init__(self, handlers, **settings)
 
 

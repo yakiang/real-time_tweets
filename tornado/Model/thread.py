@@ -16,8 +16,6 @@ class TweetsThread(Thread):
 
     def __init__(self, hashtag, socket):
         self.track = hashtag
-        # self.stream.set_socket(socket)
-        self.stream.set_thread(self)
         Thread.__init__(self)
 
     def run(self):

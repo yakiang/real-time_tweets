@@ -3,23 +3,21 @@ import json
 import tornado.websocket
 
 from Model.thread import TweetsThread
-
-
-# A dict storing the user's socket and its corresponding thread object.
-# Each user (or socket) can have only one thread object at the same time.
+from Model.session import session
 
 
 class RealSocket(tornado.websocket.WebSocketHandler):
     ''' Manipulate threads according to sockets
     '''
-    def __init__(self):
-        self.globalSessions = self.application.sessions
-
     def open(self):
+        session.add_socket(self)
+        session.set_thread(self)
         print 'socket opened'
 
     def on_close(self):
         self.stop_thread()
+        session.remove_thread(self)
+        session.remove_socket(self)
         print 'socket closed'
 
     def on_message(self, data):
@@ -30,7 +28,8 @@ class RealSocket(tornado.websocket.WebSocketHandler):
 
         if hashtag:
             # If user is monitoring something else before, stop it
-            if self in self.globalSessions:
+            pos = session.sockets_pool.index(self)
+            if session.threads_pool[pos]:
                 self.stop_thread()
 
             self.start_thread(hashtag.strip().encode('utf-8'))
@@ -40,13 +39,13 @@ class RealSocket(tornado.websocket.WebSocketHandler):
         '''
         newThread = TweetsThread(keyword, self)
         newThread.daemon = True
-        self.globalSessions.append(newThread)
+        session.set_thread(self, newThread)
         newThread.start()
 
     def stop_thread(self):
         ''' Stop the thread object
         '''
-        threadIndex = self.globalSessions.index(self) + 1
+        pos = session.sockets_pool.index(self)
+        thread = session.threads_pool[pos]
         thread.stream.disconnect()
-        del self.globalSessions[threadIndex-1]
-        del self.globalSessions[threadIndex]
+        session.set_thread(self)

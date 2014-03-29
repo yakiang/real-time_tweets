@@ -1,5 +1,8 @@
-from twython import TwythonStreamer
 import threading
+
+from twython import TwythonStreamer
+
+from session import session
 
 
 class StreamTweets(TwythonStreamer):
@@ -27,14 +30,8 @@ class StreamTweets(TwythonStreamer):
         message = '{"error": "timeout"}'
         self.send_message(message)
 
-    def set_socket(self, socket):
-        self.socket = socket
-
-    def set_thread(self, thread):
-        self.globalSessions = self.application.sessions
-        self.thread = thread
-        
     def send_message(self, message):
-        socketIndex = self.globalSessions.index(self.thread) - 1
-        socket = self.globalSessions[socketIndex]
+        thread = threading.current_thread()
+        pos = session.threads_pool.index(thread)
+        socket = session.sockets_pool[pos]
         socket.write_message(message)
