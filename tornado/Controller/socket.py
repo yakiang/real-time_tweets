@@ -12,6 +12,9 @@ from Model.thread import TweetsThread
 class RealSocket(tornado.websocket.WebSocketHandler):
     ''' Manipulate threads according to sockets
     '''
+    def __init__(self):
+        self.globalSessions = self.application.sessions
+
     def open(self):
         print 'socket opened'
 
@@ -27,8 +30,9 @@ class RealSocket(tornado.websocket.WebSocketHandler):
 
         if hashtag:
             # If user is monitoring something else before, stop it
-            if self in self.application.sessions:
+            if self in self.globalSessions:
                 self.stop_thread()
+
             self.start_thread(hashtag.strip().encode('utf-8'))
 
     def start_thread(self, keyword):
@@ -36,11 +40,13 @@ class RealSocket(tornado.websocket.WebSocketHandler):
         '''
         newThread = TweetsThread(keyword, self)
         newThread.daemon = True
-        self.application.sessions[self] = newThread
+        self.globalSessions.append(newThread)
         newThread.start()
 
     def stop_thread(self):
         ''' Stop the thread object
         '''
-        self.application.sessions[self].stream.disconnect()
-        del self.application.sessions[self]
+        threadIndex = self.globalSessions.index(self) + 1
+        thread.stream.disconnect()
+        del self.globalSessions[threadIndex-1]
+        del self.globalSessions[threadIndex]
