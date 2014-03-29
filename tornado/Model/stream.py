@@ -14,6 +14,7 @@ class StreamTweets(TwythonStreamer):
             }
             ''' % (data['text'].encode('utf-8'),
                    data['user']['screen_name'].encode('utf-8'))
+            print self.socket
             self.socket.write_message(message)
 
     def on_error(self, status_code, data):
