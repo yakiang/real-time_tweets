@@ -1,6 +1,6 @@
-import tornado.web
 import tornado.httpserver
 import tornado.ioloop
+import tornado.web
 
 from Controller.home import HomePage
 from Controller.socket import RealSocket
@@ -8,6 +8,9 @@ from Controller.socket import RealSocket
 
 class Application(tornado.web.Application):
     def __init__(self):
+        ''' Basic Application settings
+        '''
+
         handlers = [
             (r'/', HomePage),
             (r'/socket', RealSocket)

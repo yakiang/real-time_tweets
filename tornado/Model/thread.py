@@ -3,7 +3,9 @@ from threading import Thread
 from stream import StreamTweets
 
 
-class GetTweets(Thread):
+class TweetsThread(Thread):
+    ''' A thread corresponds to a stream object.
+    '''
 
     APP_KEY = 'WUTmfyk9II1fzkPz1Zsg'
     APP_SECRET = 'OFaDKdG4P3OYVpuAG5Cso6DgcApKF51VOkr0ADq38'
@@ -18,4 +20,6 @@ class GetTweets(Thread):
         Thread.__init__(self)
 
     def run(self):
+        ''' What a thread really does
+        '''
         self.stream.statuses.filter(track=self.track)
