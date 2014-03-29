@@ -32,7 +32,7 @@ class RealSocket(tornado.websocket.WebSocketHandler):
                 self.stop_thread()
             self.start_thread(hashtag)
 
-    def start_thread(keyword):
+    def start_thread(self, keyword):
         ''' Create, store and start a new thread.
         '''
         newThread = TweetsThread(keyword, self)

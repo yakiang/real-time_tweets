@@ -29,8 +29,9 @@ function add_tweet(tweet) {
   var user = ('@' + tweet['user']) || 'Ooops';
   var text = tweet['text'] || tweet['error'];
 
-  newTweet.children('h4').text(user)
   newTweet.children('p').text(text);
+  newTweet.children('a').text(user)
+  newTweet.children('a').attr('href', 'https://twitter.com/'+user);
 
   newTweet.insertBefore(topTweet);
 }

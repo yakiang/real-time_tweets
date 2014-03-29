@@ -22,9 +22,9 @@ body {
 
 .user {
   font-size: 27px;
+  font-weight: bold;
   color: #1E90FF;
-  padding-top: -18px;
-  padding-left: 10px;
+  padding: 30px 0 20px 20px;
 }
 
 .text {

@@ -7,7 +7,7 @@ class StreamTweets(TwythonStreamer):
     def on_success(self, data):
         ''' Streaming data keeps coming here
         '''
-        if 'text' in data:
+        if 'text' in data.__str__():
             message = '''{
                 "text": "%s",
                 "user": "%s"
