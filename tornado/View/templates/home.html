@@ -3,16 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>Real-time Tweets</title>
+
     <link rel='stylesheet' type='text/css' href='{{ static_url("css/main.css") }}'>
     <link rel='stylesheet' type='text/css' href='{{ static_url("css/topcoat.min.css") }}'>
-    <script src='{{ static_url("js/jquery.min.js") }}'></script>
-    <script src='{{ static_url("js/main.js") }}'></script>
   </head>
+
   <body>
     <div id='hashdiv'>
       <input id='hashtag' class='topcoat-search-input'>
       <input type='submit' value='Update' class='topcoat-button--cta' onclick='new_socket()'>
     </div>
+
     <div class='tweet shake'>
       <a target='_blank' href='' class='user'></a>
       <p class='text'>
@@ -21,5 +22,8 @@
         Chinese words are supported.
       </p>
     </div>
+
+    <script src='{{ static_url("js/jquery.min.js") }}'></script>
+    <script src='{{ static_url("js/main.js") }}'></script>
   </body>
 </html>

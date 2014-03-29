@@ -8,7 +8,7 @@ from Controller.socket import RealSocket
 
 class Application(tornado.web.Application):
     def __init__(self):
-        ''' Basic Application settings
+        ''' Basic application info
         '''
 
         handlers = [

@@ -25,8 +25,8 @@ function add_tweet(tweet) {
   var topTweet = $('.tweet').eq(0);
   var newTweet = topTweet.clone();
 
-  // Set user and tweet content or error data
-  var user = ('@' + tweet['user']) || 'Ooops';
+  // Set user and content of each tweet or error message
+  var user = tweet['user'] || 'Ooops';
   var text = tweet['text'] || tweet['error'];
 
   newTweet.children('p').text(text);
@@ -38,7 +38,7 @@ function add_tweet(tweet) {
 
 
 function new_socket() {
-  // Change a new keyword to monitor
+  // Change a keyword to monitor
   var hashtag = $('#hashtag').val();
   websocket.send(JSON.stringify({
     'hashtag': hashtag

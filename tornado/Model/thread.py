@@ -4,7 +4,7 @@ from stream import StreamTweets
 
 
 class TweetsThread(Thread):
-    ''' A thread corresponds to a stream object.
+    ''' Each thread corresponds to a stream object.
     '''
 
     APP_KEY = 'WUTmfyk9II1fzkPz1Zsg'

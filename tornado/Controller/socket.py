@@ -24,13 +24,13 @@ class RealSocket(tornado.websocket.WebSocketHandler):
         ''' Receives new keyword to monitor here
         '''
         message = json.loads(data)
-        hashtag = message.get('hashtag').strip().encode('utf-8')
+        hashtag = message.get('hashtag')
 
         if hashtag:
-            # If user if monitoring something else before, stop it
+            # If user is monitoring something else before, stop it
             if self in sockets:
                 self.stop_thread()
-            self.start_thread(hashtag)
+            self.start_thread(hashtag.strip().encode('utf-8'))
 
     def start_thread(self, keyword):
         ''' Create, store and start a new thread.
