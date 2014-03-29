@@ -7,7 +7,6 @@ from Model.thread import TweetsThread
 
 # A dict storing the user's socket and its corresponding thread object.
 # Each user (or socket) can have only one thread object at the same time.
-sockets = {}
 
 
 class RealSocket(tornado.websocket.WebSocketHandler):
@@ -28,7 +27,7 @@ class RealSocket(tornado.websocket.WebSocketHandler):
 
         if hashtag:
             # If user is monitoring something else before, stop it
-            if self in sockets:
+            if self in self.application.sessions:
                 self.stop_thread()
             self.start_thread(hashtag.strip().encode('utf-8'))
 
@@ -37,11 +36,11 @@ class RealSocket(tornado.websocket.WebSocketHandler):
         '''
         newThread = TweetsThread(keyword, self)
         newThread.daemon = True
-        sockets[self] = newThread
+        self.application.sessions[self] = newThread
         newThread.start()
 
     def stop_thread(self):
         ''' Stop the thread object
         '''
-        sockets[self].stream.disconnect()
-        del sockets[self]
+        self.application.sessions[self].stream.disconnect()
+        del self.application.sessions[self]
