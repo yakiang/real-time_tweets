@@ -25,14 +25,21 @@ function add_tweet(tweet) {
   var topTweet = $('.tweet').eq(0);
   var newTweet = topTweet.clone();
 
-  // Set user and content of each tweet or error message
+  /* Set user and content of each tweet or error message */
   var user = tweet['user'] || 'Ooops';
   var text = tweet['text'] || tweet['error'];
 
   newTweet.children('p').text(text);
   newTweet.children('a').text(user)
   newTweet.children('a').attr('href', 'https://twitter.com/'+user);
-  newTweet.css('background-color', red);
+
+  var colors = [
+    '#A4D2A4',
+    '#FF6699',
+    '#FFFF66'
+  ]
+  var rand = Math.floor(Math.random() * 10) % colors.length;
+  newTweet.css('background-color', colors[rand]);
 
   newTweet.insertBefore(topTweet);
 }

@@ -18,6 +18,7 @@ body {
   margin: 60px 15px 20px 30px;
   word-wrap: break-word;
   border: 3px groove #98BF21;
+  box-shadow: 13px 13px 13px #999999;
   padding-top: 30px;
 }
 
