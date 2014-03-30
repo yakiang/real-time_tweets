@@ -32,6 +32,7 @@ function add_tweet(tweet) {
   newTweet.children('p').text(text);
   newTweet.children('a').text(user)
   newTweet.children('a').attr('href', 'https://twitter.com/'+user);
+  newTweet.css('background-color', red);
 
   newTweet.insertBefore(topTweet);
 }

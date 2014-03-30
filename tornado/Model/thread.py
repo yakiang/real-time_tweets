@@ -15,8 +15,8 @@ class TweetsThread(Thread):
                           OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
     def __init__(self, hashtag):
-        self.track = hashtag
         Thread.__init__(self)
+        self.track = hashtag
         self.daemon = True
 
     def run(self):
