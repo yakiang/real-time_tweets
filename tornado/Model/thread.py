@@ -14,9 +14,10 @@ class TweetsThread(Thread):
     stream = StreamTweets(APP_KEY, APP_SECRET,
                           OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
 
-    def __init__(self, hashtag, socket):
+    def __init__(self, hashtag):
         self.track = hashtag
         Thread.__init__(self)
+        self.daemon = True
 
     def run(self):
         ''' What a thread really does
