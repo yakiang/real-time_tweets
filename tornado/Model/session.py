@@ -9,7 +9,7 @@ class Session(object):
 
     def get_socket_by_thread(self, thread):
         pos = self.sockets_threads_dict.values().index(thread)
-        return self.sockets_pool.keys()[pos]
+        return self.sockets_threads_dict.keys()[pos]
 
 
 session = Session()

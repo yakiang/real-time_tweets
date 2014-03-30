@@ -7,32 +7,37 @@ from Model.session import session
 
 
 class RealSocket(tornado.websocket.WebSocketHandler):
-    ''' Manipulate threads according to sockets
+    ''' Manipulate sockets and its thread
     '''
     def open(self):
         session.set_thread(self)
+        print session.sockets_threads_dict
         print 'socket opened'
 
     def on_close(self):
         self.stop_thread()
         session.remove_socket(self)
+        print session.sockets_threads_dict
         print 'socket closed'
 
     def on_message(self, data):
         ''' Receives new keyword to monitor here
         '''
+        print session.sockets_threads_dict
+        print '====='
         message = json.loads(data)
         hashtag = message.get('hashtag')
 
         if hashtag:
             self.stop_thread()
             self.start_thread(hashtag.strip().encode('utf-8'))
+        print session.sockets_threads_dict
 
     def start_thread(self, keyword):
         ''' Create, store and start a new thread.
         '''
         newThread = TweetsThread(keyword)
-        newThread.daemon = True
+        # newThread.daemon = True
         session.set_thread(self, newThread)
         newThread.start()
 
