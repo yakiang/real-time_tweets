@@ -31,7 +31,9 @@ class StreamTweets(TwythonStreamer):
         self.send_message(message)
 
     def send_message(self, message):
+        ''' Get the corresponding socket and use it to write message
+        back to the user
+        '''
         thread = threading.current_thread()
-        pos = session.threads_pool.index(thread)
-        socket = session.sockets_pool[pos]
+        socket = session.get_socket_by_thread(thread)
         socket.write_message(message)

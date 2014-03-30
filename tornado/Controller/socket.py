@@ -27,11 +27,7 @@ class RealSocket(tornado.websocket.WebSocketHandler):
         hashtag = message.get('hashtag')
 
         if hashtag:
-            # If user is monitoring something else before, stop it
-            pos = session.sockets_pool.index(self)
-            if session.threads_pool[pos]:
-                self.stop_thread()
-
+            self.stop_thread()
             self.start_thread(hashtag.strip().encode('utf-8'))
 
     def start_thread(self, keyword):
@@ -45,7 +41,7 @@ class RealSocket(tornado.websocket.WebSocketHandler):
     def stop_thread(self):
         ''' Stop the thread object
         '''
-        pos = session.sockets_pool.index(self)
-        thread = session.threads_pool[pos]
-        thread.stream.disconnect()
-        session.set_thread(self)
+        thread = session.get_thread_by_socket(socket)
+        if thread:
+            thread.stream.disconnect()
+            session.set_thread(self)

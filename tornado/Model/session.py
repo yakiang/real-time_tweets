@@ -25,5 +25,16 @@ class Session(object):
         # if it exist?
         self.sockets_pool.append(socket)
 
+    def get_thread_by_socket(self, socket):
+        try:
+            pos = self.sockets_pool.index(socket)
+            return self.threads_pool[pos]
+        except ValueError:
+            return None
+
+    def get_socket_by_thread(self, thread):
+        pos = self.threads_pool.index(thread)
+        return self.sockets_pool[pos]
+
 
 session = Session()
