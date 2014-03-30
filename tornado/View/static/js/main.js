@@ -33,6 +33,7 @@ function add_tweet(tweet) {
   newTweet.children('a').text(user)
   newTweet.children('a').attr('href', 'https://twitter.com/'+user);
 
+  // set a random background color
   var colors = [
     '#A4D2A4',
     '#FF6699',
