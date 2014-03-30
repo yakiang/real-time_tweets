@@ -4,7 +4,7 @@ var websocket;
 jQuery(document).ready(function() {
 
   // Open a websocket
-  var host = 'ws://23.244.200.215:8000/socket';
+  var host = 'ws://localhost:8000/socket';
   websocket = new WebSocket(host);
 
   websocket.onopen = function() {
@@ -33,7 +33,7 @@ function add_tweet(tweet) {
   newTweet.children('a').text(user)
   newTweet.children('a').attr('href', 'https://twitter.com/'+user);
 
-  // set a random background color
+  // randomly set a background color
   var colors = [
     '#A4D2A4',
     '#FF6699',
@@ -49,6 +49,7 @@ function add_tweet(tweet) {
 function new_socket() {
   // Change a keyword to monitor
   var hashtag = $('#hashtag').val();
+  
   websocket.send(JSON.stringify({
     'hashtag': hashtag
   }));
