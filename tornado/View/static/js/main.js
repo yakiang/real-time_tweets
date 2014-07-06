@@ -4,7 +4,7 @@ var websocket;
 jQuery(document).ready(function() {
 
   // Open a websocket
-  var host = 'ws://localhost:8000/socket';
+  var host = 'ws://www.donesoon.tk:7000/socket';
   websocket = new WebSocket(host);
 
   websocket.onopen = function() {

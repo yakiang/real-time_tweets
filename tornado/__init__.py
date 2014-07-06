@@ -28,5 +28,5 @@ class Application(tornado.web.Application):
 if __name__ == '__main__':
     app = Application()
     server = tornado.httpserver.HTTPServer(app)
-    server.listen(8000)
+    server.listen(7000)
     tornado.ioloop.IOLoop.instance().start()
