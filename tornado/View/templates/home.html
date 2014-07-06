@@ -3,26 +3,26 @@
   <head>
     <meta charset="utf-8">
     <title>Real-time Tweets</title>
+    <link rel='stylesheet' type='text/css' href='{{ static_url("css/kickstart.css") }}'>
     <link rel='stylesheet' type='text/css' href='{{ static_url("css/main.css") }}'>
-    <link rel='stylesheet' type='text/css' href='{{ static_url("css/topcoat.min.css") }}'>
   </head>
 
   <body>
-    <div id='hashdiv'>
+    <div class='grid' id='hashdiv'>
       <input id='hashtag' class='topcoat-search-input'>
       <input type='submit' value='Update' class='topcoat-button--cta' onclick='new_socket()'>
     </div>
 
-    <div class='tweet shake'>
+    <div class='grid tweet'>
       <a target='_blank' href='' class='user'></a>
       <p class='text'>
-        Please input the keyword you want to monitor and click `Update` above.<br>
+        Enter the keyword you want to monitor.<br>
         When anyone tweets anything containing your keyword, it'll be displayed here.<br>
-        Chinese words are supported.
       </p>
     </div>
 
     <script src='{{ static_url("js/jquery.min.js") }}'></script>
+    <script src='{{ static_url("js/kickstart.js") }}'></script>
     <script src='{{ static_url("js/main.js") }}'></script>
   </body>
 </html>

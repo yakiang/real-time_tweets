@@ -18,7 +18,8 @@ class Application(tornado.web.Application):
 
         settings = {
             'template_path': 'View/templates',
-            'static_path': 'View/static'
+            'static_path': 'View/static',
+            'autoreload': True
         }
 
         tornado.web.Application.__init__(self, handlers, **settings)
